@@ -35,9 +35,16 @@ Installation
 
    On Ubuntu:
 
+     # install Python package manager
      > sudo apt-get install python-pip
-     > sudo pip install cython
-     # do not install Ubuntu's cython as its too old (0.20)!
+     # install Virtualenv to keep system clean
+     # (create a self-contained Python packages environment)
+     > sudo pip install virtualenv
+     > virtualenv virtual
+     # (enable the virtual env everytime you enter this dir)
+     > source activate.sh
+     # locally install all needed packages
+     > pip install -r requirements.txt
      > cd musashi && make
 
    On Windows with MSYS2:
@@ -125,5 +132,3 @@ Libraries
     I've written some scanners that walk through file trees and retrieve the
     file data for further processing. I support file trees on the file system,
     in lha archives or in adf disk images
-
-

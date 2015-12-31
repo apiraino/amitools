@@ -19,7 +19,7 @@ from dos.MatchFirstNext import MatchFirstNext
 from amitools.vamos.label.LabelStruct import LabelStruct
 from dos.CommandLine import CommandLine
 from amitools.vamos.Process import Process
-from dos.DosErrors import DosErrors
+from dos import Error
 import dos.PathPart
 from dos.DosList import DosList
 from dos.LockManager import LockManager
@@ -30,8 +30,8 @@ class DosLibrary(AmigaLibrary):
 
   DOSFALSE = 0
   DOSTRUE = 0xffffffff
-  
-  LV_VAR   = 0	# an variable 
+
+  LV_VAR   = 0	# an variable
   LV_ALIAS = 1	# an alias
   LVF_IGNORE            =       0x80
   GVF_GLOBAL_ONLY	=       0x100
@@ -149,7 +149,7 @@ class DosLibrary(AmigaLibrary):
       txt = "%s\n" % err_str
     ctx.mem.access.w_cstr(buf_ptr,txt[:buf_len-1])
     return self.DOSTRUE
-      
+
   def PrintFault(self, ctx):
     self.io_err = ctx.cpu.r_reg(REG_D1)
     hdr_ptr = ctx.cpu.r_reg(REG_D2)
@@ -226,7 +226,7 @@ class DosLibrary(AmigaLibrary):
     return self.DOSTRUE
 
   # ----- Variables -----
-  
+
   def find_var(self, ctx, name, flags):
     if (name.lower(),flags & 0xff) in self.local_vars:
       return self.local_vars[(name.lower(),flags & 0xff)]
@@ -358,7 +358,7 @@ class DosLibrary(AmigaLibrary):
       if node != None:
         self.delete_var(ctx,node)
       return self.DOSTRUE
-      
+
   # ----- Signals ----------------------
 
   def CheckSignal(self, ctx):
@@ -1050,7 +1050,7 @@ class DosLibrary(AmigaLibrary):
     pos          = args.find_arg(keyword)
     log_dos.info("FindArgs: template=%s keyword=%s -> %d" % (template,keyword,pos))
     return pos
-    
+
   def ReadArgs(self, ctx):
     template_ptr = ctx.cpu.r_reg(REG_D1)
     template     = ctx.mem.access.r_cstr(template_ptr)
@@ -1453,7 +1453,7 @@ class DosLibrary(AmigaLibrary):
       log_dos.error("FreeDosObject: type=%d ptr=%08x -> NOT FOUND!", obj_type, ptr)
 
   # ----- Cli support ---
-  
+
   def CliInit(self,ctx):
     log_dos.info("CliInit")
     clip_addr = self.Cli(ctx)
@@ -1553,7 +1553,7 @@ class DosLibrary(AmigaLibrary):
   def SetFileSysTask(self,ctx):
     port = ctx.cpu.r_reg(REG_D1)
     ctx.process.this_task.access.w_s("pr_FileSystemTask",port)
-  
+
   # ----- Helpers -----
 
   def _alloc_mem(self, name, size):

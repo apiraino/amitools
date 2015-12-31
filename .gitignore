@@ -8,3 +8,4 @@ ipch/
 *.exe
 *.exp
 *.lib
+virtual

@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.7
 #
-# vamos [optoins] <amiga binary> [args ...]
+# vamos [options] <amiga binary> [args ...]
 #
 # run an m68k AmigaOS binary
 #
