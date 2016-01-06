@@ -143,7 +143,7 @@ class Process:
     self.cli.access.w_s("cli_CommandFile",self.cmdfile.addr)
     self.cli.access.w_s("cli_SetName",self.setname.addr)
     if name != None:
-      self.ctx.mem.access.w_bstr(cmdname.addr,name)
+      self.ctx.mem.access.w_bstr(self.cmdname.addr,name)
     log_proc.info(self.cli)
 
   def free_cli_struct(self):
